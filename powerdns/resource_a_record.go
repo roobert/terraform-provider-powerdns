@@ -24,7 +24,7 @@ func resourceARecord() *schema.Resource {
 				Required: true,
 			},
 			"ttl": &schema.Schema{
-				Type:     schema.TypeString,
+				Type:     schema.TypeInt,
 				Optional: true,
 				Default:  86400,
 			},
@@ -76,17 +76,21 @@ func resourceARecordCreate(d *schema.ResourceData, m interface{}) error {
 	rrsets := []RRSet{rrset}
 	data := RRSets{RRSets: rrsets}
 
-	log.Printf("[INFO] Sending request to PowerDNS API for data: %+v\n", data)
+	log.Printf("PowerDNS API URL: %s\n", config.APIUrl)
+	log.Printf("PowerDNS API post data: %+v\n", data)
 
 	request := gorequest.New()
-	_, _, err := request.Post(config.APIUrl).
+	resp, body, err := request.Post(config.APIUrl).
 		Set("X-API-Key", "testing_dns").
 		Send(data).
 		End()
 
 	if err != nil {
-		return fmt.Errorf("Error: %s", err)
+		return fmt.Errorf("%s", err)
 	}
+
+	log.Printf("PowerDNS API body: %s\n", body)
+	log.Printf("PowerDNS API response: %+v\n", resp)
 
 	return nil
 }
