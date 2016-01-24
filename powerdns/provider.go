@@ -23,7 +23,6 @@ func Provider() terraform.ResourceProvider {
 }
 
 func configureProvider(d *schema.ResourceData) (interface{}, error) {
-
 	config := Config{
 		APIUrl: d.Get("api_url").(string),
 	}
