@@ -1,6 +1,6 @@
 # terraform-provider-powerdns
 
-Simple provider to add A records through the PowerDNS Rest API.
+Simple provider to add A records through the PowerDNS REST API.
 
 ```
 provider "powerdns" {
