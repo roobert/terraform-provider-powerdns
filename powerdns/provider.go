@@ -7,10 +7,26 @@ import (
 
 func Provider() terraform.ResourceProvider {
 	return &schema.Provider{
-		Schema: map[string]*schema.Schema{},
+		Schema: map[string]*schema.Schema{
+			"api_url": &schema.Schema{
+				Type:     schema.TypeString,
+				Required: true,
+			},
+		},
 
 		ResourcesMap: map[string]*schema.Resource{
 			"powerdns_a_record": resourceARecord(),
 		},
+
+		ConfigureFunc: configureProvider,
 	}
+}
+
+func configureProvider(d *schema.ResourceData) (interface{}, error) {
+
+	config := Config{
+		APIUrl: d.Get("api_url").(string),
+	}
+
+	return &config, nil
 }
