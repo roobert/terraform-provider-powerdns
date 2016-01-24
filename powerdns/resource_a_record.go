@@ -81,7 +81,7 @@ func resourceARecordCreate(d *schema.ResourceData, m interface{}) error {
 
 	request := gorequest.New()
 	resp, body, err := request.Post(config.APIUrl).
-		Set("X-API-Key", "testing_dns").
+		Set("X-API-Key", config.APIKey).
 		Send(data).
 		End()
 

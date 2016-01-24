@@ -12,6 +12,10 @@ func Provider() terraform.ResourceProvider {
 				Type:     schema.TypeString,
 				Required: true,
 			},
+			"api_key": &schema.Schema{
+				Type:     schema.TypeString,
+				Required: true,
+			},
 		},
 
 		ResourcesMap: map[string]*schema.Resource{
@@ -25,6 +29,7 @@ func Provider() terraform.ResourceProvider {
 func configureProvider(d *schema.ResourceData) (interface{}, error) {
 	config := Config{
 		APIUrl: d.Get("api_url").(string),
+		APIKey: d.Get("api_key").(string),
 	}
 
 	return &config, nil
