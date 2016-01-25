@@ -37,18 +37,18 @@ type RRSets struct {
 }
 
 type RRSet struct {
-	Name       string
-	Type       string
-	Changetype string
-	Records    []Record
+	name       string
+	type       string
+	changetype string
+	records    []Record
 }
 
 type Record struct {
-	Content  string
-	Disabled bool
-	Name     string
-	Ttl      int
-	Type     string
+	content  string
+	disabled bool
+	name     string
+	ttl      int
+	type     string
 }
 
 func resourceARecordCreate(d *schema.ResourceData, m interface{}) error {
@@ -87,6 +87,10 @@ func resourceARecordCreate(d *schema.ResourceData, m interface{}) error {
 
 	if err != nil {
 		return fmt.Errorf("%s", err)
+	}
+
+	if resp.Status != "200" {
+    return fmt.Errorf("Error: (%s): %s", resp.Status, body)
 	}
 
 	log.Printf("PowerDNS API body: %s\n", body)
