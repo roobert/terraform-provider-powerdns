@@ -90,7 +90,7 @@ func resourceARecordCreate(d *schema.ResourceData, m interface{}) error {
 	}
 
 	if resp.Status != "200" {
-    return fmt.Errorf("Error: (%s): %s", resp.Status, body)
+		return fmt.Errorf("Error: (%s): %s", resp.Status, body)
 	}
 
 	log.Printf("PowerDNS API body: %s\n", body)
