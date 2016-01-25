@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/hashicorp/terraform/helper/schema"
 	"github.com/parnurzeal/gorequest"
-  //"encoding/json"
 	"log"
 )
 
@@ -34,22 +33,22 @@ func resourceARecord() *schema.Resource {
 }
 
 type RRSets struct {
-  RRSets []RRSet `json:"rrsets"`
+	RRSets []RRSet `json:"rrsets"`
 }
 
 type RRSet struct {
 	Type       string   `json:"type"`
-  Name       string   `json:"name"`
-  Changetype string   `json:"changetype"`
-  Records    []Record `json:"records"`
+	Name       string   `json:"name"`
+	Changetype string   `json:"changetype"`
+	Records    []Record `json:"records"`
 }
 
 type Record struct {
 	Type     string `json:"type"`
-  Content  string `json:"content"`
-  Disabled bool   `json:"disabled"`
-  Name     string `json:"name"`
-  Ttl      int    `json:"ttl"`
+	Content  string `json:"content"`
+	Disabled bool   `json:"disabled"`
+	Name     string `json:"name"`
+	Ttl      int    `json:"ttl"`
 }
 
 func resourceARecordCreate(d *schema.ResourceData, m interface{}) error {
@@ -62,7 +61,7 @@ func resourceARecordCreate(d *schema.ResourceData, m interface{}) error {
 		Disabled: false,
 		Name:     name,
 		Ttl:      d.Get("ttl").(int),
-    Type:     "A",
+		Type:     "A",
 	}
 
 	records := []Record{record}
@@ -71,7 +70,7 @@ func resourceARecordCreate(d *schema.ResourceData, m interface{}) error {
 		Name:       name,
 		Changetype: "REPLACE",
 		Records:    records,
-    Type:     "A",
+		Type:       "A",
 	}
 
 	rrsets := []RRSet{rrset}
