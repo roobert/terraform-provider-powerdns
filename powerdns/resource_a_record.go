@@ -38,14 +38,14 @@ type RRSets struct {
 }
 
 type RRSet struct {
-  Type       string `json: "type"`
+	Type       string `json: "type"`
 	name       string
 	changetype string
 	records    []Record
 }
 
 type Record struct {
-  Type     string `json: "type"`
+	Type     string `json: "type"`
 	content  string
 	disabled bool
 	name     string
