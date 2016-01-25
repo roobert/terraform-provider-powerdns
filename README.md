@@ -12,3 +12,14 @@ resource "powerdns_a_record" "test" {
   ip = "127.0.0.1"
 }
 ```
+
+## Install
+
+```
+go get github.com/tools/godep
+go get github.com/roobert/terraform-provider-powerdns
+cd $GOPATH/src/github.com/roobert/terraform-provider-powerdns
+godep get
+go build
+go install
+```
