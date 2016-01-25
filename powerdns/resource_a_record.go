@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/hashicorp/terraform/helper/schema"
 	"github.com/parnurzeal/gorequest"
+  "encoding/json"
 	"log"
 )
 
@@ -37,18 +38,18 @@ type RRSets struct {
 }
 
 type RRSet struct {
+  Type       string `json: "type"`
 	name       string
-	type       string
 	changetype string
 	records    []Record
 }
 
 type Record struct {
+  Type     string `json: "type"`
 	content  string
 	disabled bool
 	name     string
 	ttl      int
-	type     string
 }
 
 func resourceARecordCreate(d *schema.ResourceData, m interface{}) error {
@@ -57,21 +58,25 @@ func resourceARecordCreate(d *schema.ResourceData, m interface{}) error {
 	name := d.Get("name").(string)
 
 	record := Record{
-		Content:  d.Get("ip").(string),
-		Disabled: false,
-		Name:     name,
-		Ttl:      d.Get("ttl").(int),
-		Type:     "A",
+		content:  d.Get("ip").(string),
+		disabled: false,
+		name:     name,
+		ttl:      d.Get("ttl").(int),
 	}
+
+  // FIXME: add error checking
+  json.Unmarshal([]byte(`{"type": "A"}`), &record)
 
 	records := []Record{record}
 
 	rrset := RRSet{
-		Name:       name,
-		Type:       "A",
-		Changetype: "REPLACE",
-		Records:    records,
+		name:       name,
+		changetype: "REPLACE",
+		records:    records,
 	}
+
+  // FIXME: add error checking
+  json.Unmarshal([]byte(`{"type": "A"}`), &rrset)
 
 	rrsets := []RRSet{rrset}
 	data := RRSets{RRSets: rrsets}
