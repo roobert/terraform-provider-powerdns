@@ -64,8 +64,8 @@ func resourceARecordCreate(d *schema.ResourceData, m interface{}) error {
 		ttl:      d.Get("ttl").(int),
 	}
 
-  // FIXME: add error checking
-  json.Unmarshal([]byte(`{"type": "A"}`), &record)
+	// FIXME: add error checking
+	json.Unmarshal([]byte(`{"type": "A"}`), &record)
 
 	records := []Record{record}
 
@@ -75,8 +75,8 @@ func resourceARecordCreate(d *schema.ResourceData, m interface{}) error {
 		records:    records,
 	}
 
-  // FIXME: add error checking
-  json.Unmarshal([]byte(`{"type": "A"}`), &rrset)
+	// FIXME: add error checking
+	json.Unmarshal([]byte(`{"type": "A"}`), &rrset)
 
 	rrsets := []RRSet{rrset}
 	data := RRSets{RRSets: rrsets}
