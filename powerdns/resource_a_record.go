@@ -86,10 +86,8 @@ func resourceARecordCreate(d *schema.ResourceData, m interface{}) error {
 	log.Printf("PowerDNS API URL: %s\n", config.APIUrl)
 	log.Printf("PowerDNS API post data: %+v\n", data)
 
-	url := config.APIUrl
-
 	request := gorequest.New()
-	resp, body, err := request.Patch(url).
+	resp, body, err := request.Patch(config.APIUrl).
 		Set("X-API-Key", config.APIKey).
 		Send(data).
 		End()
@@ -105,7 +103,7 @@ func resourceARecordCreate(d *schema.ResourceData, m interface{}) error {
 	log.Printf("PowerDNS API body: %s\n", body)
 	log.Printf("PowerDNS API response: %+v\n", resp)
 
-	d.SetId("powerdns_a_record-" + url)
+	d.SetId("powerdns_a_record-" + name)
 
 	return nil
 }
@@ -134,10 +132,8 @@ func resourceARecordDelete(d *schema.ResourceData, m interface{}) error {
 	log.Printf("PowerDNS API URL: %s\n", config.APIUrl)
 	log.Printf("PowerDNS API post data: %+v\n", data)
 
-	url := config.APIUrl
-
 	request := gorequest.New()
-	resp, body, err := request.Patch(url).
+	resp, body, err := request.Patch(config.APIUrl).
 		Set("X-API-Key", config.APIKey).
 		Send(data).
 		End()
