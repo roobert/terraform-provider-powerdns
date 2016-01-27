@@ -89,7 +89,7 @@ func resourceARecordCreate(d *schema.ResourceData, m interface{}) error {
 		return fmt.Errorf("%s", err)
 	}
 
-	if resp.Status != "200" {
+	if resp.Status != "200 OK" {
 		return fmt.Errorf("Error: (%s): %s", resp.Status, body)
 	}
 
